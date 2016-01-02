@@ -23,7 +23,7 @@ function MatsLogger() {
 	}
 
 	function validate_logging_function(loggingFunction) {
-		if (loggingFunction || typeof loggingFunction !== 'function') {
+		if (!loggingFunction || typeof loggingFunction !== 'function') {
 			throw new Error('Invalid logging function given.');
 		}
 		else {
@@ -87,7 +87,7 @@ function MatsLogger() {
 			var new_function;
 				// result return by hook function is processed by the default function
 				// this allows a hook function to extend or replace the default function
-			swtich (name){
+			switch (name) {
 				case WARN:
 					new_function = function (message) {
 						log_warn(hookFunction.call(logger, message));
@@ -119,10 +119,7 @@ function MatsLogger() {
 			throw new Error('Please specify a valid name for the User Defined Logging function.');
 		}
 		else {
-			if (loggingFunction || typeof loggingFunction !== 'function') {
-				throw new Error('Please specifiy a valid logging function.');
-			}
-			else {
+			if (validate_logging_function(loggingFunction)) {
 				_udl_state[name] = false;	// turn off when created
 				logger[name] = function (message) {
 					if (_udl_state[name]) {
@@ -145,7 +142,8 @@ function MatsLogger() {
 	function log_warn(message) {
 		// always log unless overridden
 		if (message) {
-			console.log(message);
+			var to_red = '\x1b[31m' + message + '\x1b[39m';
+			console.log(to_red);
 		}
 	};
 	this.warn = log_warn;
@@ -155,7 +153,7 @@ function MatsLogger() {
 			return false;
 		}
 		// only log if right enviroment
-		if (_enviroment === PROD_ENVIRO || _enviroment === TEST_ENVIRO) {
+		if (_enviroment === TEST_ENVIRO || _enviroment === DEV_ENVIRO) {
 			console.log(message);
 		}
 	};
