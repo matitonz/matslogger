@@ -1,0 +1,23 @@
+{
+  "name": "matslogger",
+  "version": "1.0.0",
+  "description": "A simple logger for Node",
+  "main": "matslogger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matitonz/matslogger.git"
+  },
+  "keywords": [
+    "node",
+    "logging"
+  ],
+  "author": "Matitonz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matitonz/matslogger/issues"
+  },
+  "homepage": "https://github.com/matitonz/matslogger#readme"
+}
