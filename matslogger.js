@@ -12,6 +12,14 @@ function MatsLogger() {
 	const DEBUG = 'debug';
 	const INFO = 'info';
 
+	// unix console colours
+	const RESET = '\x1b[39m';
+	const RED = '\x1b[91m';
+	const GREEN = '\x1b[32m';
+	const YELLOW = '\x1b[93m';
+	const BLUE = '\x1b[36m';
+	const MAGENTA = '\x1b[35m';
+
 	var logger = this;			// keep a ref to this
 	var _enviroment = null;		// private enviroment variable
 	var _udls = {}, _udl_state = {};	// objects to hold the User Defined Logging (UDL) functions and states
@@ -55,31 +63,9 @@ function MatsLogger() {
 		}
 	};
 
-	// allow replacement functions to defaults
-	config.warn = function (enviro, replacementFunction) {
-		// test that a vaild enviroment was specified
-		if (valid_logging_function(enviro, replacementFunction)) {
-			logger.warn = replacementFunction;
-		}
-	};
-
-	config.debug = function (enviro, replacementFunction) {
-		// test that a vaild enviroment was specified
-		if (valid_logging_function(enviro, replacementFunction)) {
-			logger.debug = replacementFunction;
-		}
-	};
-
-	config.info = function (enviro, replacementFunction) {
-		// test that a vaild enviroment was specified
-		if (valid_logging_function(enviro, replacementFunction)) {
-			logger.info = replacementFunction;
-		}
-	};
-
 	// allow hooks into the standard functions
 	config.hook = function (name, hookFunction) {
-		if (!name || name !== WARN || name !== DEBUG || name !== INFO) {
+		if (!name && name !== WARN && name !== DEBUG && name !== INFO) {
 			// no valid name fond
 			throw new Error('Please specify a valid logging function to hook into.');
 		}
@@ -142,7 +128,7 @@ function MatsLogger() {
 	function log_warn(message) {
 		// always log unless overridden
 		if (message) {
-			var to_red = '\x1b[31m' + message + '\x1b[39m';
+			var to_red = RED + message + RESET;
 			console.log(to_red);
 		}
 	};
@@ -154,7 +140,8 @@ function MatsLogger() {
 		}
 		// only log if right enviroment
 		if (_enviroment === TEST_ENVIRO || _enviroment === DEV_ENVIRO) {
-			console.log(message);
+			var to_yellow = YELLOW + message + RESET;
+			console.log(to_yellow);
 		}
 	};
 	this.debug = log_debug;
@@ -165,7 +152,8 @@ function MatsLogger() {
 		}
 		// log only in dev
 		if (_enviroment === DEV_ENVIRO) {
-			console.log(message);
+			var to_blue = BLUE + message + RESET;
+			console.log(to_blue);
 		}
 	};
 	this.info = log_info;

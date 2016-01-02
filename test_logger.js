@@ -23,3 +23,16 @@ log.config.on('auth_log');
 
 // test our custom logger
 log.auth_log('user not authed!');
+
+// hook into the warning logger
+log.config.hook('warn', function (message) {
+	return 'Haha: ' + message;
+});
+
+log.warn('this is NOT funny.');
+
+log.config.hook('warn', function (message) {
+	console.log('This has been hijacked!');
+});
+
+log.warn('this will never sHoW');
