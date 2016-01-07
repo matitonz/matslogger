@@ -30,9 +30,10 @@ log.config.hook('warn', function (message) {
 });
 
 log.warn('this is NOT funny.');
+// logs 'HaHa: this is NOT funny'
 
 log.config.hook('warn', function (message) {
 	console.log('This has been hijacked!');
 });
 
-log.warn('this will never sHoW');
+log.warn('this will never sHoW');	// logs - This has been hijacked
