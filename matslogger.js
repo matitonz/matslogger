@@ -4,7 +4,7 @@ function MatsLogger() {
 
 	// enviroment enum
 	const DEV_ENVIRO = 'development';
-	const TEST_ENVIRO = 'test';
+	const TEST_ENVIRO = 'testing';
 	const PROD_ENVIRO = 'production';
 
 	// default logger names
@@ -124,11 +124,25 @@ function MatsLogger() {
 		}
 	};
 	
+    function stringify_maybe(str_or_obj) {
+        if (typeof str_or_obj === 'string') {
+            return str_or_obj;
+        }
+        else {
+            return JSON.stringify(str_or_obj);
+        }
+    }
+    
+    function print(msg) {
+    	console.log(stringify_maybe(msg));
+    }
+    this.print = print;
+
 	// default logging functionality
 	function log_warn(message) {
 		// always log unless overridden
 		if (message) {
-			var to_red = RED + message + RESET;
+			var to_red = RED + stringify_maybe(message) + RESET;
 			console.log(to_red);
 		}
 	};
@@ -140,7 +154,7 @@ function MatsLogger() {
 		}
 		// only log if right enviroment
 		if (_enviroment === TEST_ENVIRO || _enviroment === DEV_ENVIRO) {
-			var to_yellow = YELLOW + message + RESET;
+			var to_yellow = YELLOW + stringify_maybe(message) + RESET;
 			console.log(to_yellow);
 		}
 	};
@@ -152,7 +166,7 @@ function MatsLogger() {
 		}
 		// log only in dev
 		if (_enviroment === DEV_ENVIRO) {
-			var to_blue = BLUE + message + RESET;
+			var to_blue = BLUE + stringify_maybe(message) + RESET;
 			console.log(to_blue);
 		}
 	};
