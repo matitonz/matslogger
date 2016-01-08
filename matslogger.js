@@ -133,11 +133,6 @@ function MatsLogger() {
         }
     }
     
-    function print(msg) {
-    	console.log(stringify_maybe(msg));
-    }
-    this.print = print;
-
 	// default logging functionality
 	function log_warn(message) {
 		// always log unless overridden
