@@ -23,8 +23,8 @@ function MatsLogger() {
 	var logger = this;			// keep a ref to this
 	var _enviroment = null;		// private enviroment variable
 	var _udls = {}, _udl_state = {};	// objects to hold the User Defined Logging (UDL) functions and states
-	this.config = config = {};	// expose config object
-	this.hook = hook = {};		// object to allow hooks to be inserted
+	var config = this.config = {};		// expose config object
+	var hook = this.hook = {};		// object to allow hooks to be inserted
 
 	function invalid_enviroment() {
 		throw new Error('Invalid enviroment variable given.');
